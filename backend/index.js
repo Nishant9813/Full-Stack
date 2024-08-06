@@ -3,9 +3,8 @@ import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import userRoute from "./routes/user.route.js"
-import customRoute from "./routes/customData.routes.js"
-import authRoutes from "./routes/auth.js"
+import userRoute from "./routes/user.route.js";
+import session from "express-session";
 
 dotenv.config();
 const app = express();
@@ -17,22 +16,21 @@ const corsOption = {
   credentials: true,
 };
 
-app.use(cors(corsOption)); 
-app.use("/api/v1/user", userRoute)
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/customData',customRoute);
+app.use(cors(corsOption));
+app.use(session({
+  secret: process.env.SESSION_SECRET, 
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    secure: process.env.NODE_ENV === 'production', 
+    maxAge: 5 * 24 * 60 * 60 * 1000 
+  },
+}));
+app.use("/api/v1/user", userRoute);
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Server running at port ${port}`);
   connectDB();
 });
-
-// app.use("/hamari/api",(req,res) => {
-//   return res.status(200).json({
-//     "name": "deepak",
-//     "email": "kd@gmail.com",
-//     "password": "malik123",
-//     "phoneNumber": "999911919"
-//   })
-// })

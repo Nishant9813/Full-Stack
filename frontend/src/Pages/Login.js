@@ -20,7 +20,8 @@ const Login = () => {
       localStorage.setItem('token', response.data.token);
       setError('');
       setSuccess(response.data.message);
-      navigate("/");
+      navigate("/", { replace: true });
+      window.location.reload();
     } catch (err) {
      
       if (err.response && err.response.data) {

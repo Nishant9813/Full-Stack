@@ -20,7 +20,6 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='/main' element={isAuthenticated ? <Main /> : <Login/>}/>
       <Route
         path='/'
         element={isAuthenticated ? <Main /> : <Home/>}
