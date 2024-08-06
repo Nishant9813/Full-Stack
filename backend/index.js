@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRoute from "./routes/user.route.js";
 import session from "express-session";
+import todoRoute from './routes/todo.route.js';
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ app.use(session({
   },
 }));
 app.use("/api/v1/user", userRoute);
+app.use('/api/v1/todo', todoRoute);
 
 const port = process.env.PORT || 3000;
 
