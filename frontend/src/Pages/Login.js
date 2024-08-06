@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Form, Container, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import Header from '../Components/Header';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,6 +20,7 @@ const Login = () => {
       localStorage.setItem('token', response.data.token);
       setError('');
       setSuccess(response.data.message);
+      navigate("/");
     } catch (err) {
      
       if (err.response && err.response.data) {
@@ -28,6 +33,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Header />
     <Container className="mt-5 w-25">
       <Form onSubmit={handleSubmit}>
         {error && <Alert variant="danger">{error}</Alert>}
@@ -58,6 +65,7 @@ const Login = () => {
         </Button>
       </Form>
     </Container>
+    </>
   );
 };
 

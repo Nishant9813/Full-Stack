@@ -1,12 +1,14 @@
 import React from 'react'
 import { Form, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Header from '../Components/Header';
 
 const Signup = () => {
   return (
+    <>
+    <Header />
     <Container className="mt-5 w-25" >
       <Form>
-
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" placeholder="Enter Your Name" />
@@ -35,6 +37,8 @@ const Signup = () => {
         </Form.Group>
       </Form>
     </Container>
+    </>
+
   )
 }
 
